@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/GameStateBase.h"
-#include "PlayerInfoStruct.h"
+#include "Structs/PlayerInfoStruct.h"
 #include "LobbyPlayerController.generated.h"
 
 /**

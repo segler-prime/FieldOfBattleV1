@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "FoBGameInstance.h"
-#include "BattleInfoStruct.h"
+#include "Structs/BattleInfoStruct.h"
 #include "Menu.generated.h"
 
 

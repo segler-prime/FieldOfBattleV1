@@ -5,8 +5,8 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "Interfaces/OnlineSessionInterface.h"
-#include "PlayerInfoStruct.h"
-#include "BattleInfoStruct.h"
+#include "Structs/PlayerInfoStruct.h"
+#include "Structs/BattleInfoStruct.h"
 #include "FoBGameInstance.generated.h"
 
 /**

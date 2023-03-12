@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
-#include "PlayerInfoStruct.h"
+#include "Structs/PlayerInfoStruct.h"
 #include "LobbyPlayerState.generated.h"
 
 /**

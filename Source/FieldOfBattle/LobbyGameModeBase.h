@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "PlayerInfoStruct.h"
+#include "Structs/PlayerInfoStruct.h"
 #include "LobbyGameModeBase.generated.h"
 
 /**

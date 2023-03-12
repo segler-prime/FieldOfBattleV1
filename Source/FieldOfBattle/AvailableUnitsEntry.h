@@ -13,7 +13,7 @@ UCLASS()
 class FIELDOFBATTLE_API UAvailableUnitsEntry : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
 protected:
 
 
