@@ -3,7 +3,7 @@
 
 #include "FoBGameInstance.h"
 #include "OnlineSubsystem.h"
-#include "Menu.h"
+#include "Session.h"
 #include "OnlineSessionSettings.h"
 
 const static FName BATTLE_NAME_KEY = TEXT("CBattleName");
@@ -212,7 +212,7 @@ FBattleInfoStruct UFoBGameInstance::GetBattleInfo()
 
 void UFoBGameInstance::SetJoinMenuPtr(UUserWidget * JoinMenuPtr)
 {
-    JoinMenu = Cast<UMenu>(JoinMenuPtr);
+    JoinMenu = Cast<USession>(JoinMenuPtr);
 }
 
 void UFoBGameInstance::SetSelectedSessionIndex(int32 Index, FString BattleName)

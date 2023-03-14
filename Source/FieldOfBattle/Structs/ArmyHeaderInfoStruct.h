@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ArmyInfoStruct.generated.h"
+#include "ArmyHeaderInfoStruct.generated.h"
 
 /**
  * 
  */
 USTRUCT(BlueprintType)
-struct FIELDOFBATTLE_API FArmyInfoStruct
+struct FIELDOFBATTLE_API FArmyHeaderInfoStruct
 {
 	GENERATED_BODY()
 
@@ -21,5 +21,8 @@ struct FIELDOFBATTLE_API FArmyInfoStruct
 
 	UPROPERTY(BlueprintReadWrite)
 	FString ArmyName;
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 PlayerID;
 
 };

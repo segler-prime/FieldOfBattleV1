@@ -51,7 +51,7 @@ private:
 	TSharedPtr<FOnlineSessionSearch> OnlineSessionSearch;
 	
 	UPROPERTY()
-	class UMenu* JoinMenu;
+	class USession* JoinMenu;
 	
 	void CreateSession();
 

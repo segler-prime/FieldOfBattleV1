@@ -6,7 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Structs/WarbandUnitInfoStruct.h"
 #include "Structs/ArmyUnitInfoStruct.h"
-#include "Structs/ArmyInfoStruct.h"
+#include "Structs/ArmyHeaderInfoStruct.h"
 #include "Army.generated.h"
 
 class FSQLiteDatabase;
@@ -37,7 +37,7 @@ protected:
 	void AddArmyHeadersToListview();
 
 	UFUNCTION(BlueprintCallable)
-	void GetArmyUnits(FString InArmyId);
+	void GetArmyUnits(FString InArmyID);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void AddArmyUnitToListview();
@@ -48,15 +48,15 @@ protected:
 	int SaveArmyHeader(FString NewArmyName, FString NewWarbandName);
 
 	UFUNCTION(BlueprintCallable)
-	void SaveArmyUnits(FArmyUnitInfoStruct NewArmyUnitInfo, FString NewArmyId);
+	void SaveArmyUnits(FArmyUnitInfoStruct NewArmyUnitInfo, FString NewArmyID);
 
 	//Delete Functions
 	
 	UFUNCTION(BlueprintCallable)
-	void DeleteArmy(FString ArmyId);
+	void DeleteArmy(FString ArmyID);
 
 	UFUNCTION(BlueprintCallable)
-	void DeleteArmyUnits(FString ArmyId);
+	void DeleteArmyUnits(FString ArmyID);
 
 	//Storage Variables
 
@@ -67,7 +67,7 @@ protected:
 	FArmyUnitInfoStruct ArmyUnitInfo;
 
 	UPROPERTY(BlueprintReadWrite)
-	FArmyInfoStruct ArmyInfo;
+	FArmyHeaderInfoStruct ArmyHeaderInfo;
 
 private:
 

@@ -2,9 +2,6 @@
 
 
 #include "Army.h"
-//#include "Structs/WarbandUnitInfoStruct.h"
-//#include "Structs/ArmyUnitInfoStruct.h"
-//#include "Structs/ArmyInfoStruct.h"
 #include "SQLiteDatabase.h"
 
 void UArmy::GetWarbandUnits(FString InWarband)
@@ -58,9 +55,9 @@ void UArmy::GetArmyHeaders()
     //Load the Army Headers
     while (ArmyHeadersTable->Step() == ESQLitePreparedStatementStepResult::Row)
     {
-        ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyName"), ArmyInfo.ArmyName);
-        ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyWarband"), ArmyInfo.ArmyWarband);
-        ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyId"), ArmyInfo.ArmyID);
+        ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyName"), ArmyHeaderInfo.ArmyName);
+        ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyWarband"), ArmyHeaderInfo.ArmyWarband);
+        ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyId"), ArmyHeaderInfo.ArmyID);
         AddArmyHeadersToListview();
     }
 
@@ -71,7 +68,7 @@ void UArmy::GetArmyHeaders()
     delete FoBDB;
 }
 
-void UArmy::GetArmyUnits(FString InArmyId)
+void UArmy::GetArmyUnits(FString InArmyID)
 {
     //Open Database
     FoBDB = new FSQLiteDatabase();
@@ -79,7 +76,7 @@ void UArmy::GetArmyUnits(FString InArmyId)
 
     //Build SQL Statement
     ArmyUnitsTable = new FSQLitePreparedStatement();
-    FString GetArmyUnitsSQL = FString::Printf(TEXT("SELECT * FROM ArmyUnit WHERE ArmyId IS '%s'"), *InArmyId);
+    FString GetArmyUnitsSQL = FString::Printf(TEXT("SELECT * FROM ArmyUnit WHERE ArmyId IS '%s'"), *InArmyID);
     ArmyUnitsTable->Create(*FoBDB, *GetArmyUnitsSQL, ESQLitePreparedStatementFlags::Persistent);
 
     //Get Army Unit Info
@@ -111,7 +108,7 @@ void UArmy::GetArmyUnits(FString InArmyId)
 
 int UArmy::SaveArmyHeader(FString NewArmyName, FString NewWarbandName)
 {
-    UE_LOG(LogTemp, Warning, TEXT("UArmy::SaveArmyHeader - Starting"));
+    //UE_LOG(LogTemp, Warning, TEXT("UArmy::SaveArmyHeader - Starting"));
         
     //Open Database
     FoBDB = new FSQLiteDatabase();    
@@ -135,10 +132,10 @@ int UArmy::SaveArmyHeader(FString NewArmyName, FString NewWarbandName)
     return ArmyId;
 }
 
-void UArmy::SaveArmyUnits(FArmyUnitInfoStruct NewArmyUnitInfo, FString NewArmyId)
+void UArmy::SaveArmyUnits(FArmyUnitInfoStruct NewArmyUnitInfo, FString NewArmyID)
 {
     
-    UE_LOG(LogTemp, Warning, TEXT("UArmy::SaveArmyUnits - Starting"));
+    //UE_LOG(LogTemp, Warning, TEXT("UArmy::SaveArmyUnits - Starting"));
 
     //Open Database
     FoBDB = new FSQLiteDatabase();
@@ -148,7 +145,7 @@ void UArmy::SaveArmyUnits(FArmyUnitInfoStruct NewArmyUnitInfo, FString NewArmyId
     InsertInArmyUnitTable = new FSQLitePreparedStatement();
     FString InsertArmyUnitSQL = FString::Printf(TEXT
     ("INSERT INTO ArmyUnit (UnitName, MoveStat, FightStat, ShootStat, StrengthStat, ToughnessStat, WoundsStat, BraveryStat, AttacksStat, BraveryStat, UnitStrengthStat, BaseCostStat, UnitSizeStat, ArmyId, PlayerId) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%s', 0001);"),
-        *NewArmyUnitInfo.UnitName, *NewArmyUnitInfo.MoveStat, *NewArmyUnitInfo.FightStat, *NewArmyUnitInfo.ShootStat, *NewArmyUnitInfo.StrengthStat, *NewArmyUnitInfo.ToughnessStat, *NewArmyUnitInfo.WoundsStat, *NewArmyUnitInfo.InitiativeStat, *NewArmyUnitInfo.AttacksStat, *NewArmyUnitInfo.BraveryStat, *NewArmyUnitInfo.UnitStrengthStat, NewArmyUnitInfo.BaseCostStat, NewArmyUnitInfo.UnitSizeStat, *NewArmyId);
+        *NewArmyUnitInfo.UnitName, *NewArmyUnitInfo.MoveStat, *NewArmyUnitInfo.FightStat, *NewArmyUnitInfo.ShootStat, *NewArmyUnitInfo.StrengthStat, *NewArmyUnitInfo.ToughnessStat, *NewArmyUnitInfo.WoundsStat, *NewArmyUnitInfo.InitiativeStat, *NewArmyUnitInfo.AttacksStat, *NewArmyUnitInfo.BraveryStat, *NewArmyUnitInfo.UnitStrengthStat, NewArmyUnitInfo.BaseCostStat, NewArmyUnitInfo.UnitSizeStat, *NewArmyID);
      
     InsertInArmyUnitTable->Create(*FoBDB, *InsertArmyUnitSQL, ESQLitePreparedStatementFlags::Persistent);
 
@@ -162,7 +159,7 @@ void UArmy::SaveArmyUnits(FArmyUnitInfoStruct NewArmyUnitInfo, FString NewArmyId
     delete FoBDB;
 }
 
-void UArmy::DeleteArmy(FString ArmyId)
+void UArmy::DeleteArmy(FString ArmyID)
 {
     //Open Database
     FoBDB = new FSQLiteDatabase();
@@ -170,7 +167,7 @@ void UArmy::DeleteArmy(FString ArmyId)
 
     //Build SQL Statements
     DeleteArmyHeaderStmt = new FSQLitePreparedStatement();
-    FString DeleteArmyHeaderSQL = FString::Printf(TEXT("DELETE FROM ArmyHeader WHERE ArmyId=%s"), *ArmyId);
+    FString DeleteArmyHeaderSQL = FString::Printf(TEXT("DELETE FROM ArmyHeader WHERE ArmyId=%s"), *ArmyID);
     DeleteArmyHeaderStmt->Create(*FoBDB, *DeleteArmyHeaderSQL, ESQLitePreparedStatementFlags::Persistent);
 
     //Delete the Army
@@ -182,10 +179,10 @@ void UArmy::DeleteArmy(FString ArmyId)
     FoBDB->Close();
     delete FoBDB;
 
-    DeleteArmyUnits(ArmyId);
+    DeleteArmyUnits(ArmyID);
 }
 
-void UArmy::DeleteArmyUnits(FString ArmyId)
+void UArmy::DeleteArmyUnits(FString ArmyID)
 {
     //Open Database
     FoBDB = new FSQLiteDatabase();
@@ -193,7 +190,7 @@ void UArmy::DeleteArmyUnits(FString ArmyId)
 
     //Build SQL Statements
     DeleteArmyUnitsStmt = new FSQLitePreparedStatement();
-    FString DeleteArmyUnitsSQL = FString::Printf(TEXT("DELETE FROM ArmyUnit WHERE ArmyId='%s'"), *ArmyId);
+    FString DeleteArmyUnitsSQL = FString::Printf(TEXT("DELETE FROM ArmyUnit WHERE ArmyId='%s'"), *ArmyID);
     DeleteArmyUnitsStmt->Create(*FoBDB, *DeleteArmyUnitsSQL, ESQLitePreparedStatementFlags::Persistent);
 
     //Delete the Army
