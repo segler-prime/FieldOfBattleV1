@@ -50,6 +50,4 @@ private:
 	//Pointer to the FOB Game Instance
 	class UFoBGameInstance * FoBGameInstancePtr;
 
-	UArmy* ArmyDB;
-
 };

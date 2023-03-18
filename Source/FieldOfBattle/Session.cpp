@@ -7,10 +7,10 @@
        
     void USession::HostButtonClicked(FBattleInfoStruct BattleInfo)
     {
-        //UE_LOG(LogTemp, Warning, TEXT("Menu-HostButtonClicked: Starting"));
+        //UE_LOG(LogTemp, Warning, TEXT("USession::HostButtonClicked: Starting"));
+
         FoBGameInstancePtr = Cast<UFoBGameInstance>(GetGameInstance());
         FoBGameInstancePtr->HostSession(BattleInfo);
-
     }
 
     void USession::StartButtonClicked(FString Map)
@@ -30,7 +30,7 @@
 	void USession::FindSessions()
     {
         //UE_LOG(LogTemp, Warning, TEXT("Menu-FindSessions: Starting"));
-        FoBGameInstancePtr = Cast<UFoBGameInstance>(GetGameInstance());
+        FoBGameInstancePtr = Cast<UFoBGameInstance>(GetGameInstance()); 
         FoBGameInstancePtr->FindSessions(100);
     }
 

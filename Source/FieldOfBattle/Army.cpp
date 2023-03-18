@@ -4,7 +4,7 @@
 #include "Army.h"
 #include "SQLiteDatabase.h"
 
-void UArmy::GetWarbandUnits(FString InWarband)
+TArray<FWarbandUnitInfoStruct> UArmy::GetWarbandUnits(FString InWarband)
 {
     //Open Database
     FoBDB = new FSQLiteDatabase();
@@ -15,6 +15,9 @@ void UArmy::GetWarbandUnits(FString InWarband)
     FString GetWarbandUnitsSQL = FString::Printf(TEXT("SELECT * FROM WarbandUnit WHERE WarbandName IS '%s'"), *InWarband);
     WarbandUnitTable->Create(*FoBDB, *GetWarbandUnitsSQL, ESQLitePreparedStatementFlags::Persistent);
 
+    TArray<FWarbandUnitInfoStruct> WarbandUnitInfoArray;
+    FWarbandUnitInfoStruct WarbandUnitInfo;
+
     //Get Warband Unit Info
     while (WarbandUnitTable->Step() == ESQLitePreparedStatementStepResult::Row)
     {
@@ -22,16 +25,15 @@ void UArmy::GetWarbandUnits(FString InWarband)
         WarbandUnitTable->GetColumnValueByName(TEXT("MoveStat"), WarbandUnitInfo.MoveStat);
         WarbandUnitTable->GetColumnValueByName(TEXT("FightStat"), WarbandUnitInfo.FightStat);
         WarbandUnitTable->GetColumnValueByName(TEXT("ShootStat"), WarbandUnitInfo.ShootStat);
-        WarbandUnitTable->GetColumnValueByName(TEXT("StrengthStat"), WarbandUnitInfo.StrengthStat);
+        WarbandUnitTable->GetColumnValueByName(TEXT("AttacksStat"), WarbandUnitInfo.AttacksStat);
         WarbandUnitTable->GetColumnValueByName(TEXT("ToughnessStat"), WarbandUnitInfo.ToughnessStat);
         WarbandUnitTable->GetColumnValueByName(TEXT("WoundsStat"), WarbandUnitInfo.WoundsStat);
-        WarbandUnitTable->GetColumnValueByName(TEXT("InitiativeStat"), WarbandUnitInfo.InitiativeStat);
-        WarbandUnitTable->GetColumnValueByName(TEXT("AttacksStat"), WarbandUnitInfo.AttacksStat);
+        WarbandUnitTable->GetColumnValueByName(TEXT("StrengthStat"), WarbandUnitInfo.StrengthStat);
         WarbandUnitTable->GetColumnValueByName(TEXT("BraveryStat"), WarbandUnitInfo.BraveryStat);
+        WarbandUnitTable->GetColumnValueByName(TEXT("InitiativeStat"), WarbandUnitInfo.InitiativeStat);
         WarbandUnitTable->GetColumnValueByName(TEXT("UnitStrengthStat"), WarbandUnitInfo.UnitStrengthStat);
         WarbandUnitTable->GetColumnValueByName(TEXT("BaseCostStat"), WarbandUnitInfo.BaseCostStat);
-
-        AddWarbandUnitToListview();
+        WarbandUnitInfoArray.Add(WarbandUnitInfo);
     }
 
     //Clean Up
@@ -39,9 +41,11 @@ void UArmy::GetWarbandUnits(FString InWarband)
     delete WarbandUnitTable;
     FoBDB->Close();
     delete FoBDB;
+
+    return WarbandUnitInfoArray;
 }
 
-void UArmy::GetArmyHeaders()
+TArray<FArmyHeaderInfoStruct> UArmy::GetArmyHeaders()
 {
     //Open Database
     FoBDB = new FSQLiteDatabase();
@@ -52,13 +56,19 @@ void UArmy::GetArmyHeaders()
     FString GetArmyHeadersSQL = FString::Printf(TEXT("SELECT * FROM ArmyHeader"));
     ArmyHeadersTable->Create(*FoBDB, *GetArmyHeadersSQL, ESQLitePreparedStatementFlags::Persistent);
 
+    TArray<FArmyHeaderInfoStruct> ArmyHeaderInfoArray;
+    FArmyHeaderInfoStruct ArmyHeaderInfo;
+
     //Load the Army Headers
     while (ArmyHeadersTable->Step() == ESQLitePreparedStatementStepResult::Row)
     {
-        ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyName"), ArmyHeaderInfo.ArmyName);
-        ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyWarband"), ArmyHeaderInfo.ArmyWarband);
         ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyId"), ArmyHeaderInfo.ArmyID);
-        AddArmyHeadersToListview();
+        ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyWarband"), ArmyHeaderInfo.ArmyWarband);
+        ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyName"), ArmyHeaderInfo.ArmyName);
+        ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyDescription"), ArmyHeaderInfo.ArmyDescription);
+        ArmyHeadersTable->GetColumnValueByName(TEXT("ArmyPoints"), ArmyHeaderInfo.ArmyPoints);
+        ArmyHeadersTable->GetColumnValueByName(TEXT("PlayerId"), ArmyHeaderInfo.PlayerID);
+        ArmyHeaderInfoArray.Add(ArmyHeaderInfo);
     }
 
     //Clean Up
@@ -66,9 +76,11 @@ void UArmy::GetArmyHeaders()
     delete  ArmyHeadersTable;
     FoBDB->Close();
     delete FoBDB;
+
+    return ArmyHeaderInfoArray;
 }
 
-void UArmy::GetArmyUnits(FString InArmyID)
+TArray<FArmyUnitInfoStruct> UArmy::GetArmyUnits(FString InArmyID)
 {
     //Open Database
     FoBDB = new FSQLiteDatabase();
@@ -79,6 +91,9 @@ void UArmy::GetArmyUnits(FString InArmyID)
     FString GetArmyUnitsSQL = FString::Printf(TEXT("SELECT * FROM ArmyUnit WHERE ArmyId IS '%s'"), *InArmyID);
     ArmyUnitsTable->Create(*FoBDB, *GetArmyUnitsSQL, ESQLitePreparedStatementFlags::Persistent);
 
+    TArray<FArmyUnitInfoStruct> ArmyUnitInfoArray;
+    FArmyUnitInfoStruct ArmyUnitInfo;
+
     //Get Army Unit Info
     while (ArmyUnitsTable->Step() == ESQLitePreparedStatementStepResult::Row)
     {
@@ -86,17 +101,16 @@ void UArmy::GetArmyUnits(FString InArmyID)
         ArmyUnitsTable->GetColumnValueByName(TEXT("MoveStat"), ArmyUnitInfo.MoveStat);
         ArmyUnitsTable->GetColumnValueByName(TEXT("FightStat"), ArmyUnitInfo.FightStat);
         ArmyUnitsTable->GetColumnValueByName(TEXT("ShootStat"), ArmyUnitInfo.ShootStat);
-        ArmyUnitsTable->GetColumnValueByName(TEXT("StrengthStat"), ArmyUnitInfo.StrengthStat);
+        ArmyUnitsTable->GetColumnValueByName(TEXT("AttacksStat"), ArmyUnitInfo.AttacksStat);
         ArmyUnitsTable->GetColumnValueByName(TEXT("ToughnessStat"), ArmyUnitInfo.ToughnessStat);
         ArmyUnitsTable->GetColumnValueByName(TEXT("WoundsStat"), ArmyUnitInfo.WoundsStat);
-        ArmyUnitsTable->GetColumnValueByName(TEXT("InitiativeStat"), ArmyUnitInfo.InitiativeStat);
-        ArmyUnitsTable->GetColumnValueByName(TEXT("AttacksStat"), ArmyUnitInfo.AttacksStat);
+        ArmyUnitsTable->GetColumnValueByName(TEXT("StrengthStat"), ArmyUnitInfo.StrengthStat);
         ArmyUnitsTable->GetColumnValueByName(TEXT("BraveryStat"), ArmyUnitInfo.BraveryStat);
+        ArmyUnitsTable->GetColumnValueByName(TEXT("InitiativeStat"), ArmyUnitInfo.InitiativeStat);
         ArmyUnitsTable->GetColumnValueByName(TEXT("UnitStrengthStat"), ArmyUnitInfo.UnitStrengthStat);
         ArmyUnitsTable->GetColumnValueByName(TEXT("BaseCostStat"), ArmyUnitInfo.BaseCostStat);
         ArmyUnitsTable->GetColumnValueByName(TEXT("UnitSizeStat"), ArmyUnitInfo.UnitSizeStat);
-
-        AddArmyUnitToListview();
+        ArmyUnitInfoArray.Add(ArmyUnitInfo);
     }
 
     //Clean Up
@@ -104,9 +118,11 @@ void UArmy::GetArmyUnits(FString InArmyID)
     delete ArmyUnitsTable;
     FoBDB->Close();
     delete FoBDB;
+
+    return ArmyUnitInfoArray;
 }
 
-int UArmy::SaveArmyHeader(FString NewArmyName, FString NewWarbandName)
+int UArmy::SaveArmyHeader(FArmyHeaderInfoStruct NewArmyHeaderInfo)
 {
     //UE_LOG(LogTemp, Warning, TEXT("UArmy::SaveArmyHeader - Starting"));
         
@@ -116,7 +132,7 @@ int UArmy::SaveArmyHeader(FString NewArmyName, FString NewWarbandName)
 
     //Insert New Army Header Info
     InsertInArmyHeaderTable = new FSQLitePreparedStatement();
-    FString InsertArmyHeaderSQL = FString::Printf(TEXT("INSERT INTO ArmyHeader (ArmyWarband, ArmyName, ArmyDescription, PlayerId) VALUES ('%s', '%s', 'A great army', 0001);"), *NewWarbandName, *NewArmyName);
+    FString InsertArmyHeaderSQL = FString::Printf(TEXT("INSERT INTO ArmyHeader (ArmyWarband, ArmyName, ArmyDescription, ArmyPoints, PlayerId) VALUES ('%s', '%s', 'A great army', '%s', 0001);"), *NewArmyHeaderInfo.ArmyWarband, *NewArmyHeaderInfo.ArmyName, *NewArmyHeaderInfo.ArmyPoints);
     InsertInArmyHeaderTable->Create(*FoBDB, *InsertArmyHeaderSQL, ESQLitePreparedStatementFlags::Persistent);
     InsertInArmyHeaderTable->Execute();
 
@@ -144,8 +160,8 @@ void UArmy::SaveArmyUnits(FArmyUnitInfoStruct NewArmyUnitInfo, FString NewArmyID
     //Build SQL Statement
     InsertInArmyUnitTable = new FSQLitePreparedStatement();
     FString InsertArmyUnitSQL = FString::Printf(TEXT
-    ("INSERT INTO ArmyUnit (UnitName, MoveStat, FightStat, ShootStat, StrengthStat, ToughnessStat, WoundsStat, BraveryStat, AttacksStat, BraveryStat, UnitStrengthStat, BaseCostStat, UnitSizeStat, ArmyId, PlayerId) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%s', 0001);"),
-        *NewArmyUnitInfo.UnitName, *NewArmyUnitInfo.MoveStat, *NewArmyUnitInfo.FightStat, *NewArmyUnitInfo.ShootStat, *NewArmyUnitInfo.StrengthStat, *NewArmyUnitInfo.ToughnessStat, *NewArmyUnitInfo.WoundsStat, *NewArmyUnitInfo.InitiativeStat, *NewArmyUnitInfo.AttacksStat, *NewArmyUnitInfo.BraveryStat, *NewArmyUnitInfo.UnitStrengthStat, NewArmyUnitInfo.BaseCostStat, NewArmyUnitInfo.UnitSizeStat, *NewArmyID);
+    ("INSERT INTO ArmyUnit (UnitName, MoveStat, FightStat, ShootStat, AttacksStat, ToughnessStat, WoundsStat, StrengthStat, BraveryStat, InitiativeStat, UnitStrengthStat, BaseCostStat, UnitSizeStat, ArmyId, PlayerId) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%s', 0001);"),
+        *NewArmyUnitInfo.UnitName, *NewArmyUnitInfo.MoveStat, *NewArmyUnitInfo.FightStat, *NewArmyUnitInfo.ShootStat, *NewArmyUnitInfo.AttacksStat, *NewArmyUnitInfo.ToughnessStat, *NewArmyUnitInfo.WoundsStat, *NewArmyUnitInfo.StrengthStat, *NewArmyUnitInfo.BraveryStat, *NewArmyUnitInfo.InitiativeStat, *NewArmyUnitInfo.UnitStrengthStat, NewArmyUnitInfo.BaseCostStat, NewArmyUnitInfo.UnitSizeStat, *NewArmyID);
      
     InsertInArmyUnitTable->Create(*FoBDB, *InsertArmyUnitSQL, ESQLitePreparedStatementFlags::Persistent);
 

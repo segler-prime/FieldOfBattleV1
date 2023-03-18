@@ -25,27 +25,18 @@ protected:
 	//Get Functions
 
 	UFUNCTION(BlueprintCallable)
-	void GetWarbandUnits(FString InWarband);
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void AddWarbandUnitToListview();	
-	
-	UFUNCTION(BlueprintCallable)
-	void GetArmyHeaders();
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void AddArmyHeadersToListview();
+	TArray<FWarbandUnitInfoStruct> GetWarbandUnits(FString InWarband);
 
 	UFUNCTION(BlueprintCallable)
-	void GetArmyUnits(FString InArmyID);
+	TArray<FArmyHeaderInfoStruct> GetArmyHeaders();
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void AddArmyUnitToListview();
+	UFUNCTION(BlueprintCallable)
+	TArray<FArmyUnitInfoStruct> GetArmyUnits(FString InArmyID);
 
 	// Save Functions
 
 	UFUNCTION(BlueprintCallable)
-	int SaveArmyHeader(FString NewArmyName, FString NewWarbandName);
+	int SaveArmyHeader(FArmyHeaderInfoStruct NewArmyHeaderInfo);
 
 	UFUNCTION(BlueprintCallable)
 	void SaveArmyUnits(FArmyUnitInfoStruct NewArmyUnitInfo, FString NewArmyID);
@@ -57,17 +48,6 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void DeleteArmyUnits(FString ArmyID);
-
-	//Storage Variables
-
-	UPROPERTY(BlueprintReadWrite)
-	FWarbandUnitInfoStruct WarbandUnitInfo;
-
-	UPROPERTY(BlueprintReadWrite)
-	FArmyUnitInfoStruct ArmyUnitInfo;
-
-	UPROPERTY(BlueprintReadWrite)
-	FArmyHeaderInfoStruct ArmyHeaderInfo;
 
 private:
 
@@ -84,6 +64,4 @@ private:
 
 	FSQLitePreparedStatement* DeleteArmyHeaderStmt;
 	FSQLitePreparedStatement* DeleteArmyUnitsStmt;
-
-
 };

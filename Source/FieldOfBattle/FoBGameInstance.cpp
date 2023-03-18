@@ -48,13 +48,13 @@ void UFoBGameInstance::HostSession(FBattleInfoStruct BattleInfo)
     if (OnlineSessionInterface.IsValid())
     {
         auto ExistingSession = OnlineSessionInterface->GetNamedSession(NAME_GameSession);
+        BattleInfoSave = BattleInfo;
         if (ExistingSession != nullptr)
         {
-            OnlineSessionInterface->DestroySession(NAME_GameSession);
+            DestroySession();
         }
         else
         {
-            BattleInfoSave = BattleInfo;
             CreateSession(); 
         }
     }
@@ -89,7 +89,7 @@ void UFoBGameInstance::CreateSession()
     OnlineSessionSettings.Set(BATTLE_PUBLIC_KEY, BattleInfoSave.Public, EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
     OnlineSessionSettings.Set(BATTLE_PLAYERS_KEY, BattleInfoSave.NumPlayers, EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
     OnlineSessionSettings.Set(BATTLE_TURNS_KEY, BattleInfoSave.NumTurns, EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
-    
+
     OnlineSessionInterface->CreateSession(0, NAME_GameSession, OnlineSessionSettings); 
 }
 
@@ -191,7 +191,7 @@ void UFoBGameInstance::OnJoinSessionComplete(FName InSessionName, EOnJoinSession
 
 void UFoBGameInstance::DestroySession()
 {
-    
+    OnlineSessionInterface->DestroySession(NAME_GameSession);
 }
 
 void UFoBGameInstance::OnDestroySessionComplete(FName SessionName, bool bWasSuccessful)
