@@ -21,8 +21,6 @@ public:
 		
 	void PostLogin(APlayerController* NewPlayer) override;
 
-	void Logout(AController* Existing) override; 
-
 	UFUNCTION(BlueprintImplementableEvent)
 	void UpdatePlayersList();
 	

@@ -2,6 +2,7 @@
 
 
 #include "LobbyGameModeBase.h"
+#include "FoBGameInstance.h"
 
 void ALobbyGameModeBase::PostLogin(APlayerController* InNewPlayer)
 {
@@ -12,15 +13,13 @@ void ALobbyGameModeBase::PostLogin(APlayerController* InNewPlayer)
     UpdatePlayersList();
  }
 
-void ALobbyGameModeBase::Logout(AController* Existing)
-{
-    Super::Logout(Existing);
-}
-
 void ALobbyGameModeBase::StartGame(FString Map)
 {
     //UE_LOG(LogTemp, Warning, TEXT("LobbyGameMode-StartGame: Starting"));
-        
+    
+    UFoBGameInstance* FoBGameInstancePtr = Cast<UFoBGameInstance>(GetGameInstance());
+    FoBGameInstancePtr->SavePlayersInfo(PlayersInfo);
+
     UWorld* World = GetWorld();
     bUseSeamlessTravel = true;
     

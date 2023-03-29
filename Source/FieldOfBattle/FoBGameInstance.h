@@ -20,8 +20,6 @@ class FIELDOFBATTLE_API UFoBGameInstance : public UGameInstance
 	
 public:
 	
-	UFoBGameInstance(const FObjectInitializer & ObjectInitializer);
-
 	void Init();
 
 	//Functions to be used by the menu widgets
@@ -41,9 +39,15 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SavePlayerInfo(FPlayerInfoStruct InPlayerInfo);
-
+	
 	UFUNCTION(BlueprintCallable)
 	FPlayerInfoStruct GetPlayerInfo();
+
+	UFUNCTION(BlueprintCallable)
+	void SavePlayersInfo(TArray<FPlayerInfoStruct> PlayersInfoSave);
+
+	UFUNCTION(BlueprintCallable)
+	TArray<FPlayerInfoStruct> GetPlayersInfo();
 
 private:
 
@@ -67,6 +71,9 @@ private:
 	
 	//Saved PlayerInfo
 	FPlayerInfoStruct PlayerInfoSave;
+
+	//Saved Array of All Players Info
+	TArray<FPlayerInfoStruct> PlayersInfoSave;
 	
 	//Saved Join Game Conditions
 	int32 SelectedSessionIndexSave;

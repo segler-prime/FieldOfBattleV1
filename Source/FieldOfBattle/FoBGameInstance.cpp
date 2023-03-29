@@ -13,11 +13,6 @@ const static FName BATTLE_PUBLIC_KEY = TEXT("CBattlePublic");
 const static FName BATTLE_PLAYERS_KEY = TEXT("CBattlePlayers");
 const static FName BATTLE_TURNS_KEY = TEXT("CBattleTurns");
 
-UFoBGameInstance::UFoBGameInstance(const FObjectInitializer & ObjectInitializer)
-{
-
-}
-
 void UFoBGameInstance::Init()
 {
     Super::Init();
@@ -232,6 +227,16 @@ void UFoBGameInstance::SavePlayerInfo(FPlayerInfoStruct InPlayerInfo)
 FPlayerInfoStruct UFoBGameInstance::GetPlayerInfo()
 {
     return PlayerInfoSave;
+}
+
+void UFoBGameInstance::SavePlayersInfo(TArray<FPlayerInfoStruct> InPlayersInfo)
+{
+    PlayersInfoSave = InPlayersInfo;
+}
+
+TArray<FPlayerInfoStruct> UFoBGameInstance::GetPlayersInfo()
+{
+    return PlayersInfoSave;
 }
 
 void UFoBGameInstance::OnNetworkFailure(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString)

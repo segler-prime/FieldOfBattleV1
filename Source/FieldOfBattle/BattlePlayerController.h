@@ -17,9 +17,6 @@ class FIELDOFBATTLE_API ABattlePlayerController : public APlayerController
 	
 public:
 
-	UFUNCTION(BlueprintCallable)
-	void GetPlayerInfo();
-
 protected:
 
 	UPROPERTY(BlueprintReadWrite)
