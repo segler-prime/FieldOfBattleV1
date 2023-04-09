@@ -21,5 +21,5 @@ struct FIELDOFBATTLE_API FPlayerInfoStruct
 	FArmyHeaderInfoStruct ArmyHeaderInfo;
 	
 	UPROPERTY(BlueprintReadWrite)
-	int32 Team;
+	int32 Team = 0;
 };

@@ -14,7 +14,7 @@ struct FIELDOFBATTLE_API FArmyHeaderInfoStruct
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite)
-	int32 ArmyID;
+	int32 ArmyID = 0;
 
 	UPROPERTY(BlueprintReadWrite)
 	FString ArmyWarband;
@@ -29,5 +29,5 @@ struct FIELDOFBATTLE_API FArmyHeaderInfoStruct
 	FString ArmyPoints;
 
 	UPROPERTY(BlueprintReadWrite)
-	int32 PlayerID;
+	int32 PlayerID = 0;
 };

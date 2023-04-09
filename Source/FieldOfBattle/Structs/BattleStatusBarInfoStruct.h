@@ -3,32 +3,25 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BattleInfoStruct.generated.h"
+#include "BattleStatusBarInfoStruct.generated.h"
 
 /**
  * 
  */
 USTRUCT(BlueprintType)
-struct FIELDOFBATTLE_API FBattleInfoStruct
+struct FIELDOFBATTLE_API FBattleStatusBarInfoStruct
 {
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite)
-	FString BattleName;
+	int32 TurnNumber = 0;
 
 	UPROPERTY(BlueprintReadWrite)
-	FString Map;
+	int32 TeamNumber = 0;
 
 	UPROPERTY(BlueprintReadWrite)
-	FString BattleType;
+	FString PlayerName;
 
 	UPROPERTY(BlueprintReadWrite)
-	FString Public;
-	
-	UPROPERTY(BlueprintReadWrite)
-	int32 NumPlayers = 0;
-	
-	UPROPERTY(BlueprintReadWrite)
-	int32 NumTurns = 0;
-
+	FString TurnPhase;
 };

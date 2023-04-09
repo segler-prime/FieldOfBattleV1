@@ -47,12 +47,12 @@ struct FIELDOFBATTLE_API FArmyUnitInfoStruct
 	FString UnitStrengthStat;
 
 	UPROPERTY(BlueprintReadWrite)
-	int32 BaseCostStat;
+	int32 BaseCostStat = 0;
 
 	UPROPERTY(BlueprintReadWrite)
-	int32 UnitSizeStat;
+	int32 UnitSizeStat = 0;
 
 	UPROPERTY(BlueprintReadWrite)
-	int32 ArmyID;
+	int32 ArmyID = 0;
 
 };

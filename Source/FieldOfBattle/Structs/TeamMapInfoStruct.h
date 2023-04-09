@@ -3,22 +3,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SessionInfoStruct.generated.h"
+#include "FieldOfBattle/BattlePlayerController.h"
+#include "TeamMapInfoStruct.generated.h"
 
 /**
  * 
  */
 USTRUCT(BlueprintType)
-struct FIELDOFBATTLE_API FSessionInfoStruct
+struct FIELDOFBATTLE_API FTeamMapInfoStruct
 {
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite)
-	FString SessionBattleName;
+	ABattlePlayerController* BattlePlayerController;
 
 	UPROPERTY(BlueprintReadWrite)
-	FString SessionHostName;
-
-	UPROPERTY(BlueprintReadWrite)
-	int32 SessionIndex = 0;
+	FString PlayerName;
 };

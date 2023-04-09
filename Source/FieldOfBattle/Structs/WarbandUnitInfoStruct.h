@@ -47,5 +47,5 @@ struct FIELDOFBATTLE_API FWarbandUnitInfoStruct
 	FString UnitStrengthStat;
 
 	UPROPERTY(BlueprintReadWrite)
-	int32 BaseCostStat;
+	int32 BaseCostStat = 0;
 };
