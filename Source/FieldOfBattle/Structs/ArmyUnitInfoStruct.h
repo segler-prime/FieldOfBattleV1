@@ -50,7 +50,22 @@ struct FIELDOFBATTLE_API FArmyUnitInfoStruct
 	int32 BaseCostStat = 0;
 
 	UPROPERTY(BlueprintReadWrite)
+	int32 UnitSpacingStat = 0;
+	
+	UPROPERTY(BlueprintReadWrite)
+	int32 UnitWidthStat = 0;
+	
+	UPROPERTY(BlueprintReadWrite)
 	int32 UnitSizeStat = 0;
+	
+	UPROPERTY(BlueprintReadWrite)
+	int32 UnitDamageStat = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 UnitTeam = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	FString UnitOwner;
 
 	UPROPERTY(BlueprintReadWrite)
 	int32 ArmyID = 0;

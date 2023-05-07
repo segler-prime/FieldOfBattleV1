@@ -48,4 +48,10 @@ struct FIELDOFBATTLE_API FWarbandUnitInfoStruct
 
 	UPROPERTY(BlueprintReadWrite)
 	int32 BaseCostStat = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 UnitSpacingStat = 0;
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 UnitWidthStat = 0;
 };
