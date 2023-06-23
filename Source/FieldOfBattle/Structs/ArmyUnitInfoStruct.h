@@ -14,6 +14,9 @@ struct FIELDOFBATTLE_API FArmyUnitInfoStruct
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite)
+	int32 UnitId;
+
+	UPROPERTY(BlueprintReadWrite)
 	FString UnitName;
 
 	UPROPERTY(BlueprintReadWrite)
@@ -64,6 +67,9 @@ struct FIELDOFBATTLE_API FArmyUnitInfoStruct
 	UPROPERTY(BlueprintReadWrite)
 	int32 UnitTeam = 0;
 
+	UPROPERTY(BlueprintReadWrite)
+	bool UnitDeployed = false;
+		
 	UPROPERTY(BlueprintReadWrite)
 	FString UnitOwner;
 

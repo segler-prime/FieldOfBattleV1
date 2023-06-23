@@ -99,6 +99,7 @@ TArray<FArmyUnitInfoStruct> UArmy::GetArmyUnits(FString InArmyID)
     //Get Army Unit Info
     while (ArmyUnitsTable->Step() == ESQLitePreparedStatementStepResult::Row)
     {
+        ArmyUnitsTable->GetColumnValueByName(TEXT("UnitId"), ArmyUnitInfo.UnitId);
         ArmyUnitsTable->GetColumnValueByName(TEXT("UnitName"), ArmyUnitInfo.UnitName);
         ArmyUnitsTable->GetColumnValueByName(TEXT("MoveStat"), ArmyUnitInfo.MoveStat);
         ArmyUnitsTable->GetColumnValueByName(TEXT("FightStat"), ArmyUnitInfo.FightStat);
