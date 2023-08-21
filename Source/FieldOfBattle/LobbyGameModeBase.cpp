@@ -25,7 +25,7 @@ void ALobbyGameModeBase::StartGame(FString Map)
     
     if (Map == "Stoney Bowl")
     {
-        World->ServerTravel(TEXT("/Game/Maps/BattleBowlMap?listen"), true);
+        World->ServerTravel(TEXT("/Game/Maps/TestMap4?listen"), true);
     }
     
     if (Map == "Scorched Ridge")
